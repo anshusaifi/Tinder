@@ -1,24 +1,41 @@
-console.log("hii");
-const express = require('express')
-
+const express = require("express");
+ const connectDB = require("./config/databse");
 const app = express();
+const User = require("./models/user");
 
-app.get("/user/:ID/:NAME/:PASSWORD",(req,res)=>{
-    console.log(req.params);
-})
 
-app.post("/user",(req,res)=>{
-    res.send({
-        name : "I AM A POST CALL"
+connectDB()
+  .then(() => {
+    console.log("Database Connected Succesfully");
+    app.listen(3000, () => {
+  console.log("server is listening on port 3000");
+});
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+  app.post("/Signup",async (req,res)=>{
+    const user  = User({
+        firstName : "Anas",
+        lastName  : "ali",
+        email : "abc@gmail.com",
+        password : "123456",
+
     })
-})
 
-app.use("/start",(req,res)=>{
-    res.send("hello from server")
+    try {
+        
+        await user.save();
+    res.send("user saved Succefully");
 
-})
+    } catch (error) {
+          res.status(400).send("error"+error);
+    }
+
+    await user.save();
+    res.send("user saved Succefully");
+
+  })
 
 
-app.listen(3000,()=>{
-    console.log("server is listening on port 3000");
-})
