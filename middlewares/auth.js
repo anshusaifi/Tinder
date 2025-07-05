@@ -8,7 +8,7 @@ const userAuth = async(req,res,next)=>{
     try {
     const {token} = req.cookies;
   if(!token){
-    throw new Error("Token not found")
+    return res.status(401).send("Please Login");
   }
     const decodeMsg = await jwt.verify(token , "DEVTINDER@7099");
     const {_id} = decodeMsg;
@@ -20,10 +20,8 @@ const userAuth = async(req,res,next)=>{
     next();
 
     } catch (error) {
-        res.status(404).send("error :" + error.message);
+        res.status(404).send("error User Not Logged in:  " + error.message);
     }
-   
-
     
 };
 
