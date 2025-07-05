@@ -16,3 +16,4 @@ const connectDB = async () => {
 };
 
 module.exports = connectDB;
+// ssh -i "TinderSecretKey.pem" ubuntu@ec2-13-201-85-123.ap-south-1.compute.amazonaws.com
