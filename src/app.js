@@ -15,7 +15,7 @@ const corsOptions = {
   origin: 'http://localhost:5173',    
   credentials: true                   
 };
- const PORT = 7777;
+
 app.use(cors(corsOptions));
 app.use("/",authRouter)
 app.use("/",profileRouter)
@@ -25,8 +25,8 @@ connectDB()
 
   .then(() => {
     console.log("Database Connected Succesfully");
-    app.listen(PORT, () => {
-      console.log("server is listening on port"+PORT);
+    app.listen(7777, () => {
+      console.log("server is listening on port 3000");
     });
   })
   .catch((err) => {
