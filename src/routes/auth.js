@@ -13,7 +13,7 @@ authRouter.post("/login", async (req, res) => {
     const user = await User.findOne({ email: email });
     console.log(user);
     if (!user) {
-      throw new Error(" Invalid Credentials");
+      throw new Error("Email not Valid");
     }
 
     const isPassword = await user.validatePassword(password);
@@ -22,8 +22,11 @@ authRouter.post("/login", async (req, res) => {
       res.cookie("token", token);
       res.send(user);
     }
+    if (!isPassword) {
+      return res.status(401).send("password not valid");
+    }
   } catch (error) {
-    res.status(400).send("error" + error.message);
+    res.status(400).send(error.message);
   }
 });
 
@@ -65,7 +68,7 @@ authRouter.post("/Signup", async (req, res) => {
 
     
     const hashPassword = await bcrypt.hash(password, 10);
-    console.log(hashPassword);
+    // console.log(hashPassword);
     const user = new User({
       firstName,
       lastName,

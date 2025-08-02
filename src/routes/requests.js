@@ -10,7 +10,8 @@ requestRouter.post("/request/send/:status/:touserId",userAuth ,async(req,res)=>{
         const fromUserId = req.user._id;
         const toUserId   = req.params.touserId;
         const status  = req.params.status;
-        console.log(toUserId);
+        console.log("inside send")
+        console.log(req.body);
 
         const Allowed_Status = ["intrested","ignored"];
         if(!Allowed_Status.includes(status)){
