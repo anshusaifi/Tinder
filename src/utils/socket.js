@@ -1,4 +1,4 @@
-const { Server } = require("socket.io");
+const socket = require("socket.io");
 const crypto = require("crypto");
 const { Chat } = require("../models/chat");
 const ConnectionRequest = require("../models/connectionRequests");
@@ -11,16 +11,13 @@ const getSecretRoomId = (userId, targetUserId) => {
 };
 
 const initializeSocket = (server) => {
-  const io = new Server(server, {
+  const io = socket(server, {
     cors: {
       origin: "*",
-      credentials: true,
     },
   });
 
   io.on("connection", (socket) => {
-    console.log("User connected:", socket.id);
-
     socket.on("joinChat", ({ firstName, userId, targetUserId }) => {
       const roomId = getSecretRoomId(userId, targetUserId);
       console.log(firstName + " joined Room : " + roomId);
@@ -61,9 +58,7 @@ const initializeSocket = (server) => {
       }
     );
 
-    socket.on("disconnect", () => {
-      console.log("User disconnected:", socket.id);
-    });
+    socket.on("disconnect", () => {});
   });
 };
 
