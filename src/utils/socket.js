@@ -13,7 +13,7 @@ const getSecretRoomId = (userId, targetUserId) => {
 const initializeSocket = (server) => {
   const io = new Server(server, {
     cors: {
-      origin: ["http://localhost:5173", "http://13.201.85.123"],
+      origin: "*",
       credentials: true,
     },
   });
